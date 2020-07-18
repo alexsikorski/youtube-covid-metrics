@@ -27,7 +27,8 @@ def main():
 
                 items = file_data.get("items")
                 for item in items:
-                    video = {"title": None, "views": None, "tags": None}
+                    video = {"title": None, "tags": None, "views": None, "comments": None, "likes": None,
+                             "dislikes": None}
                     snippets = item.get("snippet")
                     statistics = item.get("statistics")
 
@@ -40,6 +41,12 @@ def main():
                     for key, value in statistics.items():
                         if key == "viewCount":
                             video["views"] = value
+                        elif key == "commentCount":
+                            video["comments"] = value
+                        elif key == "likeCount":
+                            video["likes"] = value
+                        elif key == "dislikeCount":
+                            video["dislikes"] = value
 
                     videos.append(video)
                 file_count += 1
