@@ -72,7 +72,19 @@ def main():
 
     print("Average views:", total_views/video_count)
     print("Average COVID-19 views:", c_total_views/c_video_count)
-    
+    print("Average comment per view", total_comments/total_views)
+    print("Average COVID-19 comment per  view", c_total_comments/c_total_views)
+    print("Average likes per view", total_likes/total_views)
+    print("Average COVID-19 likes per comment", c_total_likes/c_total_views)
+    print("Average dislikes per view", total_dislikes/total_views)
+    print("Average COVID-19 dislikes per view", c_total_dislikes/c_total_views)
+    print("")
+    print("Average likes per comment", total_likes/total_comments)
+    print("Average COVID-19 likes per comment", c_total_likes/c_total_comments)
+    print("Average dislikes per comment", total_dislikes/total_comments)
+    print("Average COVID-19 dislikes per comment", c_total_dislikes/c_total_comments)
+
+
 
 
 if __name__ == "__main__":
