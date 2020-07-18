@@ -23,7 +23,7 @@ def main():
                     break
 
                 file_data = json.load(f)
-                print("\rOpening file..." + file_location, end="")
+                print("\rOpening file... " + file_location, end="")
 
                 items = file_data.get("items")
                 for item in items:
@@ -50,11 +50,8 @@ def main():
 
                     videos.append(video)
                 file_count += 1
-            if file_count == 4:  # there can only be 4 files as there are only 4 pages retrieved from YouTube API
-                save_pkl(videos, subdir + "/")
-
-    for video in videos:
-        print(video)
+        if file_count == 4:  # there can only be 4 files as there are only 4 pages retrieved from YouTube API
+            save_pkl(videos, subdir + "/")
 
 
 if __name__ == "__main__":
