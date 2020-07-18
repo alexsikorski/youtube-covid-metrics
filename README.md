@@ -6,8 +6,8 @@ Client demands for software that can obtain metrics of video engagement and perf
 These specific metrics are required for analysis:
 - Average views
 - Average COVID-19 views
-- Average comment per view
-- Average COVID-19 comment per view 
+- Average comments per view
+- Average COVID-19 comments per view 
 - Average likes/dislikes per view
 - Average COVID019 likes/dislikes per view
 
@@ -31,5 +31,7 @@ The goal of this project is to be able to visualise how videos with a title cont
 **transform_data.py** is designed to iterate through each subdirectory that contains the data. This script then transforms the data into a format (list of dictionaries) that is easily programmable. The list is then saved as a pickle file in the respective subdirectory, this storage allows for other usage.
 
 **analyse_data.py** reads the generated pickle files and creates a list of videos. This list then iterated through to obtain desired statistics for further calculations. This script only considers the title as a source of identifying COVID-19 related videos because some channels use descriptions and tags with unrelated information. If the title contains the virus then the video will be almost always COVID-19 related.
+
+The original metrics measured against views but later through development it was decided that comparing engangement (comments, likes and dislikes) together seemed more conclusive. However, engagement per view is still considered.
 ## Author
 Alex Sikorski
