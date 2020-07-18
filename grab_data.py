@@ -5,11 +5,19 @@ import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 
+from datetime import datetime
+
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 
 
 def main():
-    create_folder("./data/")
+    today = datetime.today()
+    dir_name = str("./data/" + str(today.day) + "-"
+                   + str(today.month) + "-" + str(today.year) + "/")
+    dir_name_write = str("data/" + str(today.day) + "-"
+                         + str(today.month) + "-" + str(today.year) + "/")
+
+    create_folder(dir_name)
 
     page_count = 1
     file_name = "data-"
@@ -36,11 +44,11 @@ def main():
     )
     first_response = first_request.execute()
 
-    with open("data/" + file_name + str(page_count) + ".json", "w") as outfile:
+    with open(dir_name_write + file_name + str(page_count) + ".json", "w") as outfile:
         json.dump(first_response, outfile)
 
     while True:
-        next_page = obtain_page("data/" + file_name + str(page_count) + ".json")
+        next_page = obtain_page(dir_name_write + file_name + str(page_count) + ".json")
         if next_page is None:
             break
         request = youtube.videos().list(
@@ -54,7 +62,7 @@ def main():
         print("\rWriting file data-" + str(page_count) + ".json", end="")
         page_count = page_count + 1
 
-        with open("data/" + file_name + str(page_count) + ".json", "w") as outfile:
+        with open(dir_name_write + file_name + str(page_count) + ".json", "w") as outfile:
             json.dump(response, outfile)
 
     print("\rWriting file data-" + str(page_count) + ".json... All done!", end="")
