@@ -52,7 +52,7 @@ def main():
         if next_page is None:
             break
         request = youtube.videos().list(
-            part="snippet,contentDetails,statistics,topicDetails",
+            part="snippet,contentDetails,statistics",
             chart="mostPopular",
             maxResults=50,
             pageToken=str(next_page),
