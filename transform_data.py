@@ -6,14 +6,13 @@ videos = []
 
 
 def save_pkl(data, name):
-    with open(name + ".pkl", "wb") as f:
+    with open(name + "video_master.pkl", "wb") as f:
         pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
 
 
 def main():
-    # Generate pkl files for each entry
-
     for subdir, dirs, files in os.walk(os.getcwd()):
+        file_count = 0
         for file in files:
             if file.endswith(".json") and file.startswith("data"):
                 file_location = os.path.join(subdir, file)
@@ -43,8 +42,9 @@ def main():
                             video["views"] = value
 
                     videos.append(video)
-
-            save_pkl(videos, "vid_master")
+                file_count += 1
+            if file_count == 4:  # there can only be 4 files as there are only 4 pages retrieved from YouTube API
+                save_pkl(videos, subdir + "/")
 
     for video in videos:
         print(video)
