@@ -32,10 +32,31 @@ def main():
                 pkl_count += 1
                 videos += load_pkl(subdir + "/" + file)
 
-    video_count = len(videos)
+    # to use latest videos and remove duplicates
+    seen = set()
+    filtered_videos = []
+    for video in videos:
+        for (k, v) in video.items():
+            if k == "title":
+                # if it already exists, update
+                if v in seen:
+                    for filtered_video in filtered_videos:
+                        for (f_k, f_v) in filtered_video.items():
+                            if f_k == "title":
+                                if f_v == v:
+                                    filtered_videos.remove(filtered_video)
+                                    filtered_videos.append(video)
+
+                # if doesnt, add entry
+                if v not in seen:
+                    seen.add(v)
+                    filtered_videos.append(video)
+
+    video_count = len(filtered_videos)
+    print("Total entries:", video_count)
 
     # for averages
-    for video in videos:
+    for video in filtered_videos:
         for (k, v) in video.items():
             if v is not None:
                 if k == "views":
@@ -48,11 +69,11 @@ def main():
                     total_dislikes += int(v)
 
     # isolate COVID-19 related videos
-    for video in videos:
-        for(k, v) in video.items():
+    for video in filtered_videos:
+        for (k, v) in video.items():
             if k == "title":
                 temp_lower = v.lower()
-                if "covid-19"in temp_lower or "covid" in temp_lower or "coronavirus" in temp_lower or "quarantine" in temp_lower:
+                if "covid-19" in temp_lower or "covid" in temp_lower or "coronavirus" in temp_lower or "quarantine" in temp_lower:
                     covid_videos.append(video)
 
     c_video_count = len(covid_videos)
@@ -83,8 +104,6 @@ def main():
     print("Average COVID-19 likes per comment", c_total_likes/c_total_comments)
     print("Average dislikes per comment", total_dislikes/total_comments)
     print("Average COVID-19 dislikes per comment", c_total_dislikes/c_total_comments)
-
-
 
 
 if __name__ == "__main__":
