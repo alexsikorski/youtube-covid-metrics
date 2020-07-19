@@ -13,6 +13,7 @@ def save_pkl(data, name):
 def main():
     for subdir, dirs, files in os.walk(os.getcwd()):
         file_count = 0
+        videos.clear()
         for file in files:
             if file.endswith(".json") and file.startswith("data"):
                 file_location = os.path.join(subdir, file)
