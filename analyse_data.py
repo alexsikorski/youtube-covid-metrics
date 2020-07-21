@@ -52,8 +52,6 @@ def main():
                     seen.add(v)
                     filtered_videos.append(video)
 
-    video_count = len(filtered_videos)
-    print("Total entries:", video_count)
 
     # for averages
     for video in filtered_videos:
@@ -76,8 +74,6 @@ def main():
                 if "covid-19" in temp_lower or "covid" in temp_lower or "coronavirus" in temp_lower or "quarantine" in temp_lower:
                     covid_videos.append(video)
 
-    c_video_count = len(covid_videos)
-
     # for COVID-19 averages
     for video in covid_videos:
         for (k, v) in video.items():
@@ -91,19 +87,40 @@ def main():
                 if k == "dislikes":
                     c_total_dislikes += int(v)
 
-    print("Average views:", total_views/video_count)
-    print("Average COVID-19 views:", c_total_views/c_video_count)
-    print("Average comment per view", total_comments/total_views)
-    print("Average COVID-19 comment per  view", c_total_comments/c_total_views)
-    print("Average likes per view", total_likes/total_views)
-    print("Average COVID-19 likes per comment", c_total_likes/c_total_views)
-    print("Average dislikes per view", total_dislikes/total_views)
-    print("Average COVID-19 dislikes per view", c_total_dislikes/c_total_views)
-    print("")
-    print("Average likes per comment", total_likes/total_comments)
-    print("Average COVID-19 likes per comment", c_total_likes/c_total_comments)
-    print("Average dislikes per comment", total_dislikes/total_comments)
-    print("Average COVID-19 dislikes per comment", c_total_dislikes/c_total_comments)
+
+    video_count = len(filtered_videos)
+    c_video_count = len(covid_videos)
+
+    avg_views = total_views / video_count
+    avg_comment_views = total_comments / total_views
+    avg_likes_views = total_likes / total_views
+    avg_dislikes_views = total_dislikes / total_views
+    avg_likes_comments = total_likes / total_comments
+    avg_dislikes_comments = total_dislikes / total_comments
+
+    c_avg_views = c_total_views / c_video_count
+    c_avg_comment_views = c_total_comments / c_total_views
+    c_avg_likes_views = c_total_likes / c_total_views
+    c_avg_dislikes_views = c_total_dislikes / c_total_views
+    c_avg_likes_comments = c_total_likes / c_total_comments
+    c_avg_dislikes_comments = c_total_dislikes / c_total_comments
+
+    print("Total video entries:", video_count)
+    print("Total COVID-19 video entires:", c_video_count)
+    print("---------------------------------------------")
+    print("Average views:", avg_views)
+    print("Average comment per view", avg_comment_views)
+    print("Average likes per view", avg_likes_views)
+    print("Average dislikes per view", avg_dislikes_views)
+    print("Average likes per comment", avg_likes_comments)
+    print("Average dislikes per comment", avg_dislikes_comments)
+    print("---------------------------------------------")
+    print("Average COVID-19 views:", c_avg_views)
+    print("Average COVID-19 comment per  view", c_avg_comment_views)
+    print("Average COVID-19 likes per view", c_avg_likes_views)
+    print("Average COVID-19 dislikes per view", c_avg_dislikes_views)
+    print("Average COVID-19 likes per comment", c_avg_likes_comments)
+    print("Average COVID-19 dislikes per comment", c_avg_dislikes_comments)
 
 
 if __name__ == "__main__":
