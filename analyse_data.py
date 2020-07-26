@@ -29,8 +29,10 @@ def main():
     for subdir, dirs, files in os.walk(os.getcwd()):
         for file in files:
             if file.endswith(".pkl"):
+                print("Opening", subdir, "file...", file)
                 pkl_count += 1
                 videos += load_pkl(subdir + "/" + file)
+    print("---------------------------------------------")
 
     # to use latest videos and remove duplicates
     seen = set()
@@ -68,11 +70,21 @@ def main():
 
     # isolate COVID-19 related videos
     for video in filtered_videos:
+        is_covid = False
         for (k, v) in video.items():
             if k == "title":
                 temp_lower = v.lower()
-                if "covid-19" in temp_lower or "covid" in temp_lower or "coronavirus" in temp_lower or "quarantine" in temp_lower:
-                    covid_videos.append(video)
+                if not is_covid:
+                    if "covid-19" in temp_lower or "covid" in temp_lower or "coronavirus" in temp_lower or "quarantine" in temp_lower:
+                        covid_videos.append(video)
+                        is_covid = True
+            if k == "tags":
+                if not is_covid and v is not None:
+                    for tag in v:
+                        tag_lower = tag.lower()
+                        if "covid-19" in tag_lower or "covid" in tag_lower or "coronavirus" in tag_lower or "quarantine" in tag_lower:
+                            covid_videos.append(video)
+                            is_covid = True
 
     # for COVID-19 averages
     for video in covid_videos:
