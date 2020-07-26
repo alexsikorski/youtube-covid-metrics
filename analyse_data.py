@@ -1,3 +1,4 @@
+import csv
 import os
 import pickle
 
@@ -54,7 +55,6 @@ def main():
                     seen.add(v)
                     filtered_videos.append(video)
 
-
     # for averages
     for video in filtered_videos:
         for (k, v) in video.items():
@@ -99,7 +99,6 @@ def main():
                 if k == "dislikes":
                     c_total_dislikes += int(v)
 
-
     video_count = len(filtered_videos)
     c_video_count = len(covid_videos)
 
@@ -116,6 +115,22 @@ def main():
     c_avg_dislikes_views = c_total_dislikes / c_total_views
     c_avg_likes_comments = c_total_likes / c_total_comments
     c_avg_dislikes_comments = c_total_dislikes / c_total_comments
+
+    with open('metrics.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['total entries', 'total coronavirus entries'])
+        writer.writerow([video_count, c_video_count])
+        writer.writerow(['average stats'])
+        writer.writerow(['avg views', 'avg comments per view', 'avg likes per view', 'average dislikes per view',
+                         'averages likes per comment', 'average dislikes per comment'])
+        writer.writerow([avg_views, avg_comment_views, avg_likes_views, avg_dislikes_views, avg_likes_comments,
+                         avg_dislikes_comments])
+        writer.writerow(['average coronavirus stats'])
+        writer.writerow(['avg views', 'avg comments per view', 'avg likes per view', 'average dislikes per view',
+                         'averages likes per comment', 'average dislikes per comment'])
+        writer.writerow(
+            [c_avg_views, c_avg_comment_views, c_avg_likes_views, c_avg_dislikes_views, c_avg_likes_comments,
+             c_avg_dislikes_comments])
 
     print("Total video entries:", video_count)
     print("Total COVID-19 video entires:", c_video_count)
