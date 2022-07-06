@@ -1,7 +1,9 @@
 # YouTube Covid Metrics
-## Description
+
 Obtain and store data of top YouTube videos and compare average metrics to COVID-19 related videos.
+
 ## Brief (fictional client)
+
 Client demands for software that can obtain metrics of video engagement and performance in a certain time period. COVID-19 related videos should be identified through certain keywords/topics established in the video data obtained.
 These specific metrics are required for analysis:
 - Average views
@@ -12,19 +14,28 @@ These specific metrics are required for analysis:
 - Average COVID019 likes/dislikes per view
 
 Data should be exported in a format where an excel file can be used to illustrate trends. This practice is important as the data needs to be human-readable and used for futher analysis.
+
 ## Setup
+
 #### External Libraries
+
 * Google APIs Client
+
 #### Pip
+
 1. `pip install --upgrade google-api-python-client`
 2. `pip install --upgrade google-auth-oauthlib google-auth-httplib2`
-#### Note (important)
-Download `YOUR_CLIENT_SECRET_FILE.json` and place in directory, this is done following the api setup tutorial provided by Google.
+
+*Note: Download `YOUR_CLIENT_SECRET_FILE.json` and place in the directory, this is done following the api setup tutorial provided by Google.*
+
 #### Running
+
 1. Run `grab_data.py`.
 2. Run `transform_data.py`.
 3. Run `analyse_data.py`.
+
 ## Report
+
 The goal of this project is to be able to visualise how videos with a title containing COVID-19/coronavirus perform against the other popular videos.
 `grab_data.py` utilises YouTube v3 API. This script is designed to iterate through all possible pages that are returned by Google as to exhuast all data. The main directory for all data is simply called data however, the subdirectories are named after the day, month and year. This implementation allows for separation of data by a difference of a day - this script should be ran every day to harvest more data.
 
@@ -35,6 +46,7 @@ The goal of this project is to be able to visualise how videos with a title cont
 The original metrics measured against views but later through development it was decided that comparing engangement (comments, likes and dislikes) together seemed more conclusive. However, engagement per view is still considered.
 
 ## Illustrations
+
 These illustrations were generated with data obtained between the 18th of July and 19th of August.
 
 ![Metrics](https://alexsikorski.net/img/youtube-covid-metrics/coronavirus-metrics.jpg)
